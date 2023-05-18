@@ -1,0 +1,2 @@
+Run	ad	ai	ed	ei	ft	lw	rh	sw	ta	ts	ws	z0
+1	0.15	0.2	0.95	0.97	9	0	0	0	0	0	1	0.003

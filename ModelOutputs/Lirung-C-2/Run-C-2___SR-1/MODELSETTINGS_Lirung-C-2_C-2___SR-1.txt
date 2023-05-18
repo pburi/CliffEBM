@@ -1,0 +1,136 @@
+& : function (...)  
+&.character : function (...)  
+&.default : function (e1, e2)  
+additionalOutput :  logi TRUE
+alpha_d :  num 0.15
+alpha_i :  num 0.2
+AWSdata : 'data.frame':	3768 obs. of  16 variables:
+buffer_gla_msk : Formal class 'SpatialPolygons' [package "sp"] with 4 slots
+c_p :  num 1004
+calculateInitHorizon :  logi TRUE
+cell :  int 706
+CL :  num 2
+cl_geom_r : Formal class 'RasterStack' [package "raster"] with 12 slots
+CLIFF_CLOSEHORIZON : function (v, dem_r, cliff_r, cliff_poly, resol, newgridsize)  
+CLIFF_FARHORIZON : function (v, dem_r, resol, resol2)  
+cliff_p : Formal class 'SpatialPolygonsDataFrame' [package "sp"] with 5 slots
+cliff_r : Formal class 'RasterLayer' [package "raster"] with 13 slots
+cliffs_df : 'data.frame':	1 obs. of  4 variables:
+cliffs_geom_df : 'data.frame':	706 obs. of  9 variables:
+clifn :  chr "Cliff2_May2013.shp"
+columnsSkyangle_I :  num [1:706] 1 4 7 10 13 16 19 22 25 28 ...
+Date :  POSIXct[1:3768], format: "2013-05-19 00:00:00" "2013-05-19 01:00:00" "2013-05-19 02:00:00" "2013-05-19 03:00:00" "2013-05-19 04:00:00" "2013-05-19 05:00:00" ...
+DC : function (dataframe)  
+DC_names :  chr [1:24] "Hour0" "Hour1" "Hour2" "Hour3" "Hour4" "Hour5" "Hour6" "Hour7" "Hour8" "Hour9" "Hour10" "Hour11" "Hour12" "Hour13" "Hour14" "Hour15" ...
+DC_PC : function (cliff_IDs, ts_v, Flux_m)  
+debris :  num [1:360] 0.487 0.18 0.486 0.484 0.482 ...
+dem1 : Formal class 'RasterLayer' [package "raster"] with 13 slots
+dem2 : Formal class 'RasterLayer' [package "raster"] with 13 slots
+demfn1 :  chr "UAV-DEM_1m_May2013_Cliff2.tif"
+demfn2 :  chr "ALOS100m.tif"
+depth : function (this, thisdepth = 0)  
+doy :  num [1:3768] 139 139 139 139 139 139 139 139 139 139 ...
+e_s :  num 0.611
+elem :  num 706
+empty_r : Formal class 'RasterLayer' [package "raster"] with 13 slots
+Env_LR :  num 0.0065
+epsilon_d :  num 0.95
+epsilon_i :  num 0.97
+f :  num 1
+filter_val :  int 9
+g :  num 9.81
+G_SC :  num 1367
+generated :  chr "2023-05-18 20:44:20.718434"
+gl_geom_st : Formal class 'RasterStack' [package "raster"] with 12 slots
+glafn :  chr "glacier_mask_2014.shp"
+hor_skyI :  num [1:360] 24.9 35.3 24.9 35.4 36.4 ...
+hor_skyL :  num [1:360] -2.25 -2.23 -2.59 -2.84 -3.21 ...
+hor1 : 'data.frame':	360 obs. of  2 variables:
+hor2 : 'data.frame':	360 obs. of  2 variables:
+hor3 : 'data.frame':	360 obs. of  3 variables:
+horfile_dem2 : 'data.frame':	360 obs. of  707 variables:
+horHRDEM_all : 'data.frame':	360 obs. of  706 variables:
+horHRDEM_ice : 'data.frame':	360 obs. of  706 variables:
+horI_m :  num [1:706, 1:360] 34.4 34.4 34.5 34.5 34.5 ...
+hrs :  int [1:24] 0 1 2 3 4 5 6 7 8 9 ...
+id :  chr "C-2___SR-1"
+ID_cliffs :  chr "2"
+idx1 :  int [1:18] 272 283 285 286 298 299 300 301 302 303 ...
+idx2 :  int [1:19] 2 282 287 288 289 290 291 292 293 294 ...
+idx3 :  int [1:323] 1 3 4 5 6 7 8 9 10 11 ...
+interv :  chr "%m"
+iOutput_ts :  int [1:6] 312 1032 1776 2520 3240 3768
+k :  num 0.41
+L_e :  num 2514000
+L_f :  num 334000
+Lat :  num 28.2
+localTZ :  chr "Europe/Zurich"
+LWdev :  int 0
+LWin :  num [1:3768] 265 260 253 251 253 ...
+LWout :  num [1:3768] NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN ...
+Mair :  num 0.029
+metfn :  chr "meteodata_AWS2013.txt"
+n.cores :  num 4
+neighbCells :  num 8
+newgridsize :  num 100
+nu :  num 0.0000135
+obstr_d : 'data.frame':	360 obs. of  706 variables:
+obstr_s_I : 'data.frame':	360 obs. of  706 variables:
+obstr_s_L : 'data.frame':	360 obs. of  706 variables:
+P_0 :  num 101
+paramfile : 'data.frame':	1 obs. of  13 variables:
+parfn :  chr "param_20220103.txt"
+path_code :  chr "E:/CliffEBM/Code"
+path_data :  chr "E:/CliffEBM/Data"
+path_func :  chr "E:/CliffEBM/Code/Functions.r"
+path_hor :  chr "E:/CliffEBM/Data/Horizons"
+path_newdir :  chr "E:/CliffEBM/Data/ModelOutputs/Lirung-C-2/Run-C-2___SR-1"
+path_out :  chr "E:/CliffEBM/Data/ModelOutputs"
+path_outlist :  chr "E:/CliffEBM/Data/ModelOutputs/Lirung-C-2/Run-C-2___SR-1/Lists"
+path_outplot :  chr "E:/CliffEBM/Data/ModelOutputs/Lirung-C-2/Run-C-2___SR-1/Plots"
+path_outpol :  chr "E:/CliffEBM/Data/ModelOutputs/Lirung-C-2/Run-C-2___SR-1/Polygons"
+path_outrast :  chr "E:/CliffEBM/Data/ModelOutputs/Lirung-C-2/Run-C-2___SR-1/Rasters"
+path_outtab :  chr "E:/CliffEBM/Data/ModelOutputs/Lirung-C-2/Run-C-2___SR-1/Tables"
+PERIOD :  POSIXct[1:3768], format: "2013-05-19 00:00:00" "2013-05-19 01:00:00" "2013-05-19 02:00:00" "2013-05-19 03:00:00" "2013-05-19 04:00:00" "2013-05-19 05:00:00" ...
+projec :  chr "+proj=utm +zone=45 +datum=WGS84 +units=m +no_defs"
+prt_deb : 'data.frame':	360 obs. of  3 variables:
+reduction :  num 4
+resol_calc :  num 1
+resol1 :  num 1
+resol2 :  num 100
+Rgas :  num 8.31
+rH :  num [1:3768] 87.4 84.3 85.4 88 91.7 ...
+RHdev :  int 0
+rho_0 :  num 1.29
+rho_i :  num 900
+root :  chr "E:/CliffEBM"
+runID :  chr "1"
+sigma :  num 0.0000000567
+sim_folder :  chr "Lirung-C-2"
+simStart :  chr "2013-05-19 00:00:00"
+simStop :  chr "2013-10-22 23:00:00"
+simulation :  NULL
+sky_I :  num [1:360] 0.723 0.608 0.723 0.606 0.595 ...
+sky_L :  num [1:360] 1.03 1.02 1.03 1.03 1.04 ...
+SRN :  int 1
+stack_dc : Formal class 'RasterStack' [package "raster"] with 12 slots
+stripname : function (x, name)  
+SWdev :  int 0
+SWin :  num [1:3768] -0.5135 -2.6508 -2.9754 -0.4566 -0.0324 ...
+T_0 :  num 288
+t_load_horizons :  'proc_time' Named num [1:5] 0 0 0 NA NA
+Ta :  num [1:3768] 4.43 3.91 2.72 2 2.15 ...
+TAdev :  int 0
+targetTZ :  chr "Asia/Kathmandu"
+ti :  chr "Slope  2013-05-19"
+Ti :  num 0
+time :  num [1:3768] 0 100 200 300 400 500 600 700 800 900 ...
+Ts :  num [1:3768] 3.591 2.59 0.91 0.641 1.61 ...
+TSdev :  int 0
+Tsurf :  num [1:3768] 3.591 2.59 0.91 0.641 1.61 ...
+view_br : Formal class 'RasterBrick' [package "raster"] with 13 slots
+ws :  num [1:3768] 0.628 0.383 0.291 0.482 0.774 ...
+WSmult :  num 1
+year :  num [1:3768] 2013 2013 2013 2013 2013 ...
+z :  num 2
+z0 :  num 0.003
