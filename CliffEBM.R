@@ -11,7 +11,8 @@
 #
 #
 #
-# TODOs: check potential solar radiation calcualtion!
+# TODOs: check potential solar radiation calculation! 
+#        evt. use function calc_PotRadiation_CosineResponsePower() from https://github.com/laubblatt/cleaRskyQuantileRegression/
 #
 #
 # Contact: Dr. Pascal Buri
