@@ -45,11 +45,13 @@ sim_folder<-'Lirung-C-'&CL
 ## define root path of all data
 root<-'E:/CliffEBM'
 
-## define the reduction of corese to be used (max. no. - reduction) 
+## define the reduction of cores to be used (max. number - reduction) 
 reduction<-4
 # reduction<-0
 
-## define parameter file name (albedos, emissivities, meteorological offsets, etc.)
+## define parameter file name 
+##  Parameter file defines for single or multiple (e.g. for sensitivity analysis, Monte Carlo analysis etc.) runs: 
+##  albedos, emissivities, structural parameters, meteorological offsets
 parfn<-'param_20220103.txt'
 
 ## define cliff-shapefile name
@@ -145,6 +147,8 @@ library(sf)
 library(sp)                                                         
 library(stats)                                                                                 
 library(utils)
+library(zoo)   #used in function file only
+## install missing packages using the install.packages() function (e.g.: install.packages("zoo") )
 
 ## define no. of digits printed in console
 options('scipen'=100, 'digits'=4)
