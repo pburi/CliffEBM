@@ -11,10 +11,6 @@
 #
 #
 #
-# TODOs: check potential solar radiation calculation! 
-#        evt. use function calc_PotRadiation_CosineResponsePower() from https://github.com/laubblatt/cleaRskyQuantileRegression/
-#
-#
 # Contact: Dr. Pascal Buri
 #          Swiss Federal Institute for Forest, Snow and Landscape Research, WSL
 #          Zürcherstrasse 111, 8903 Birmensdorf, Switzerland
@@ -651,7 +647,7 @@ for(SRN in 1:nrow(paramfile)){
   
   year<-as.numeric(strftime(Date,format='%Y'))
   doy<-as.numeric(strftime(Date,format='%j'))
-  time<-as.numeric(strftime(Date,format='%H%M'))   # for omega (hour angle)
+  hour<-as.numeric(strftime(Date,format='%H'))
   ws<-AWSdata$WS
   rH<-AWSdata$RH
   SWin<-AWSdata$SWIN
@@ -684,10 +680,10 @@ for(SRN in 1:nrow(paramfile)){
   # DEFINE REMAINING CONSTANTS
   #===============================================================================
   # define constants
-  G_SC<-1367        # Solar constant [W/m^2]
   Env_LR<-0.0065    # Environmental temperature lapse rate [K m^-1] 
-  #  (used for pressure in turbulent flux)
-  Lat<-28.2         # Latitude (pos. for N-hemisphere) [?]
+                    #  (used for pressure in turbulent flux)
+  Lat<-28.21        # Latitude (pos. for N-hemisphere) [°]
+  Lon<-85.56        # Longitude (pos. for W-hemisphere) [°]
   sigma<-5.67e-8    # Stefan-Boltzmann constant [W m^-2 K^-4]
   Ti<-0             # Ice cliff surface temperature [C]
   g<-9.81           # Gravitational acceleration [m s^-2]
@@ -912,79 +908,17 @@ for(SRN in 1:nrow(paramfile)){
     #===============================================================================
     # SHORTWAVE RADIATION
     #===============================================================================
-    # Gamma:
-    # Day angle (continuosly increasing through the year)
-    #  (only used for eccentricity correction)
-    DOY<-doy[TS]
-    YEAR<-year[TS]
-    Gamma<-2*pi*(DOY-79.6764-0.2422*(YEAR-1985)+
-                   floor((YEAR-1985)/4))/65.2422
     
-    # E_0:
-    # Eccentricity correction factor of Earth's orbit
-    SIN_Gamma<-sin(Gamma)
-    SIN2_Gamma<-sin(2*Gamma)
-    COS_Gamma<-cos(Gamma)
-    COS2_Gamma<-cos(2*Gamma)
+    library(cleaRskyQuantileRegression)
     
-    E_0<-1.00011+0.034221*COS_Gamma+0.00128*SIN_Gamma-
-      0.000719*COS2_Gamma+0.000077*SIN2_Gamma
-    
-    # omega:
-    # Hour angle for the relevant time of day
-    TIME<-time[TS]
-    #    omega<-15*(12-(TIME/100))*pi/180
-    omega<-15*((TIME/100)-12)*pi/180   # Garnier&Ohmura 1968: 
-    #  "measured from solar noon, 
-    #   positively towards west"
-    
-    # delta:
-    # Declination angle (simpler method: Cooper PI 1968, SE)
-    delta<-23.45*sin(((DOY+284)*360/365)*pi/180)*pi/180
-    
-    # Declination angle (turned off by Reid)
-    #fy[t,z]<-2*pi*(doy1[t,z]-1)/365
-    #delta[t,z]<-0.006918-0.399912*cos(fy[t,z])+0.070257*
-    #            sin(fy[t,z])-0.006758*cos(2*fy[t,z])+0.000907*
-    #            sin(2*fy[t,z])-0.002697*cos(3*fy[t,z])+0.00148*
-    #            sin(3*fy[t,z])
-    
-    # Convert geographical latitude into radians
-    phi<-Lat*pi/180
-    
-    # predefine constants for radiation calculation
-    SIN_phi<-sin(phi)
-    SIN_omega<-sin(omega)
-    SIN_delta<-sin(delta)
-    COS_phi<-cos(phi)
-    COS_omega<-cos(omega)
-    COS_delta<-cos(delta)
-    
-    # h:
-    # Solar elevation angle (based on Wikipedia!)
-    h<-asin(COS_omega*COS_delta*COS_phi+SIN_delta*SIN_phi)
-    
-    COS_h<-cos(h)
-    SIN_h<-sin(h)
-    
-    # theta:
-    # Solar zenith angle
-    theta<-acos(SIN_phi*SIN_delta+COS_phi*COS_delta*COS_omega)
-    
-    # solarazimuth:
-    # Solar azimuth angle (360 minus solarazimuth = compass direction of the sun,
-    #  in order not to have negative values)
-    solarazimuth<-pi - asin(SIN_omega*COS_delta/COS_h)
-    # Convert solar azimuth from radians into degrees
-    solaraz<-solarazimuth*180/pi
-    
-    # Now do all the radiation calculations
-    
-    # I_E:
-    # Extraterrestrial radiation
-    I_E<-E_0*G_SC*SIN_h
-    # Theoretical extraterrestrial radiation can not be < 0
-    I_E<-pmax(I_E,0)
+    I_E<-calc_PotRadiation_CosineResponsePower(doy = doy[TS],
+                                               hour = hour[TS],
+                                               latDeg = 28.21081,
+                                               longDeg = 85.56169,
+                                               timeZone = 0,
+                                               isCorrectSolartime = FALSE,
+                                               cosineResponsePower = 1.2 )
+                                               
     
     # SWin can not be larger than I_E (in cases where this happens,
     #   numerical probelms occur, leading to model inaccuracies)
