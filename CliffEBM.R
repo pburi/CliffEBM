@@ -133,12 +133,13 @@ projec<-'+proj=utm +zone=45 +datum=WGS84 +units=m +no_defs'
 # LOAD PACKAGES
 ################################################################################
 ################################################################################
+library(cleaRskyQuantileRegression)
 library(doParallel)                                                                             
 library(foreach)                                                                                 
 library(grDevices)                                                                               
 library(iterators)                                                                               
 library(methods)                                                                                 
-library(parallel)                                                                                
+library(parallel)      
 library(raster)                                                                                  
 library(rgdal)                                                                                   
 library(rgeos)                                                                                  
