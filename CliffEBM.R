@@ -1,21 +1,24 @@
 ################################################################################
 # ICE CLIFF ENERGY BALANCE MODEL
 #
-# Authors: Pascal Buri(1), Marin Kneib(1,2)
+# 
+# AUTHORS: Pascal Buri(1), Marin Kneib(1,2)
 #          (1) Swiss Federal Institute for Forest, Snow and Landscape Research, WSL
 #          (2) Université Grenoble Alpes, France
 #   
 #
-# Model details: Buri et al., 2016a (https://doi.org/10.3189/2016AoG71A059)
+# 
+# MODEL DETAILS: Buri et al., 2016a (https://doi.org/10.3189/2016AoG71A059)
 #                Kneib et al., 2022 (https://doi.org/10.5194/tc-16-4701-2022)
 #
 #
 #
-# Contact: Dr. Pascal Buri
+# CONTACT: Dr. Pascal Buri
 #          Swiss Federal Institute for Forest, Snow and Landscape Research, WSL
 #          Zürcherstrasse 111, 8903 Birmensdorf, Switzerland
 #          pascal.buri@wsl.ch
 ################################################################################
+
 
 #===============================================================================
 # INITIALIZE WORKSPACE
@@ -279,6 +282,8 @@ for(SRN in 1:nrow(paramfile)){
   centrY<-centr[2,]
   cliffs_df<-as.data.frame(cbind(area,centrX,centrY))
   cliffs_df$ID<-CL
+  utmcoor<-SpatialPoints(cbind(centrX,centrY),proj4string=CRS(projec))
+  longlatcoor<-spTransform(utmcoor,CRS("+proj=longlat"))
   rm(area,centr,centrX,centrY)
   
   
@@ -646,7 +651,6 @@ for(SRN in 1:nrow(paramfile)){
   # # check if no duplicated dates are in the dataset:
   # which(duplicated(Date))
   
-  year<-as.numeric(strftime(Date,format='%Y'))
   doy<-as.numeric(strftime(Date,format='%j'))
   hour<-as.numeric(strftime(Date,format='%H'))
   ws<-AWSdata$WS
@@ -682,9 +686,9 @@ for(SRN in 1:nrow(paramfile)){
   #===============================================================================
   # define constants
   Env_LR<-0.0065    # Environmental temperature lapse rate [K m^-1] 
-                    #  (used for pressure in turbulent flux)
-  Lat<-28.21        # Latitude (pos. for N-hemisphere) [°]
-  Lon<-85.56        # Longitude (pos. for W-hemisphere) [°]
+  #  (used for pressure in turbulent flux)
+  Lat<-extent(longlatcoor)[3]  # Latitude (pos. for N-hemisphere) [°]
+  Lon<-extent(longlatcoor)[1]  # Longitude (pos. for W-hemisphere) [°]
   sigma<-5.67e-8    # Stefan-Boltzmann constant [W m^-2 K^-4]
   Ti<-0             # Ice cliff surface temperature [C]
   g<-9.81           # Gravitational acceleration [m s^-2]
@@ -910,16 +914,19 @@ for(SRN in 1:nrow(paramfile)){
     # SHORTWAVE RADIATION
     #===============================================================================
     
-    library(cleaRskyQuantileRegression)
-    
+    ############################################################################
+    ## I_E: potential clear sky shortwave radiation
+    #  Calculation following Renner et al., 2019 (https://doi.org/10.1029/2019EA000686)
+    #  https://github.com/laubblatt/cleaRskyQuantileRegression/
     I_E<-calc_PotRadiation_CosineResponsePower(doy = doy[TS],
                                                hour = hour[TS],
-                                               latDeg = 28.21081,
-                                               longDeg = 85.56169,
+                                               latDeg = Lat,
+                                               longDeg = Lon,
                                                timeZone = 0,
                                                isCorrectSolartime = FALSE,
                                                cosineResponsePower = 1.2 )
-                                               
+    ############################################################################
+    
     
     # SWin can not be larger than I_E (in cases where this happens,
     #   numerical probelms occur, leading to model inaccuracies)
@@ -927,6 +934,10 @@ for(SRN in 1:nrow(paramfile)){
     I_in_obs<-pmin(SW_IN,I_E)
     # SWin can not be smaller than 0
     I_in_obs<-pmax(0,I_in_obs)
+    
+    # ##check
+    # plot(I_E,type='l')
+    # lines(I_in_obs,col='red')
     
     # k_t:
     # Clearness index
@@ -1805,4 +1816,3 @@ for(SRN in 1:nrow(paramfile)){
 } ### CLOSING LOOP OVER "SENSITIVITY RUN" 
 
 gc()
-
