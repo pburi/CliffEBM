@@ -2,7 +2,7 @@
 # FUNCTIONS FILE
 #
 # 
-# 2021/11/03
+# 2023/05/19
 #
 #
 # Pascal Buri | High Mountain Glaciers and Hydrology | 
@@ -356,7 +356,7 @@ DC<-function(dataframe){
 ################################################################################################
 # recursive function to remove name from all levels of list
 # 
-# https://stackoverflow.com/questions/37853679/removing-elements-in-a-nested-r-list-by-name
+# from: https://stackoverflow.com/questions/37853679/removing-elements-in-a-nested-r-list-by-name
 
 stripname <- function(x, name) {
   thisdepth <- depth(x)
@@ -373,7 +373,7 @@ stripname <- function(x, name) {
 ################################################################################################
 # function to find depth of a list element
 # 
-# see http://stackoverflow.com/questions/13432863/determine-level-of-nesting-in-r
+# see: http://stackoverflow.com/questions/13432863/determine-level-of-nesting-in-r
 
 depth <- function(this, thisdepth=0){
   if (!is.list(this)) {
