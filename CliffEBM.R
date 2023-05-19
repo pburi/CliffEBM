@@ -11,11 +11,13 @@
 #
 #
 #
+# TODOs: check potential solar radiation calcualtion!
+#
+#
 # Contact: Dr. Pascal Buri
 #          Swiss Federal Institute for Forest, Snow and Landscape Research, WSL
 #          Zürcherstrasse 111, 8903 Birmensdorf, Switzerland
 #          pascal.buri@wsl.ch
-#
 ################################################################################
 
 #===============================================================================
