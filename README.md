@@ -5,6 +5,7 @@ This repository provides a model code that calculates the distributed surface en
 The model has been applied on debris-covered glaciers in the Nepalese Himalayas (Buri et al., 2016a) and in Southeast Tibet (Kneib et al., 2022).
 
 
+
 ================ Model example run ================
 
 Here we provide example input data (digital elevation models, shapefiles, meteodata) to run the CliffEBM on one supraglacial cliff on the debris-covered Lirung Glacier (Nepal).
@@ -13,16 +14,14 @@ To run the model you need to download the entire branch on your machine, and adj
 The model was run on the newest R versions (4.3.0), but should also run on older versions, too.
 
 
+
 ================ Versions ================
 
-R:
-
-R version 4.3.0 (2023-04-21 ucrt) -- "Already Tomorrow"
+R: R version 4.3.0 (2023-04-21 ucrt) -- "Already Tomorrow"
 
 
-RStudio:
+RStudio: RStudio 2023.03.0+386 "Cherry Blossom" Release (3c53477afb13ab959aeb5b34df1f10c237b256c3, 2023-03-09) for Windows
 
-RStudio 2023.03.0+386 "Cherry Blossom" Release (3c53477afb13ab959aeb5b34df1f10c237b256c3, 2023-03-09) for Windows
 
 
 ================ References ================
