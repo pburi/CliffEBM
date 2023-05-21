@@ -30,6 +30,6 @@ install.packages("package-name")
 
 
 ## References
-- Buri P, Pellicciotti F, Steiner JF, Miles ES and Immerzeel WW (2016a) *A grid-based model of backwasting of supraglacial ice cliffs on debris-covered glaciers*. _Annals of Glaciology_, 57(71), 199–211. https://doi.org/10.3189/2016AoG71A059
+- Buri P, Pellicciotti F, Steiner JF, Miles ES and Immerzeel WW (2016a) A grid-based model of backwasting of supraglacial ice cliffs on debris-covered glaciers. _Annals of Glaciology_, 57(71), 199–211. https://doi.org/10.3189/2016AoG71A059
 
-- Kneib M, Miles ES, Buri P, Fugger S, McCarthy MJ, Shaw TE and Pellicciotti F (2022) *Sub-seasonal variability of supraglacial ice cliff melt rates and associated processes from time-lapse photogrammetry*. _The Cryosphere_, 16, 4701–4725. https://doi.org/10.5194/tc-16-4701-2022
+- Kneib M, Miles ES, Buri P, Fugger S, McCarthy MJ, Shaw TE and Pellicciotti F (2022) Sub-seasonal variability of supraglacial ice cliff melt rates and associated processes from time-lapse photogrammetry. _The Cryosphere_, 16, 4701–4725. https://doi.org/10.5194/tc-16-4701-2022
