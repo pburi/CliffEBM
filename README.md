@@ -2,7 +2,7 @@
 ## A Gridded Ice Cliff Energy Balance Model
 > 2023-05-21
 
-| ![logo.jpg](doc/logo.jpg) | 
+![logo.jpg](doc/logo.jpg)
 
 _CliffEBM_ is a model that calculates the distributed surface energy balance for ice cliffs, i.e. steep ice surfaces with complex, heterogeneous topographies. It was originally designed for supraglacial ice cliffs on debris-covered glaciers. The model has been applied on debris-covered glaciers in the Nepalese Himalayas [(Buri et al., 2016a)](https://doi.org/10.3189/2016AoG71A059) and in Southeast Tibet [(Kneib et al., 2022)](https://doi.org/10.5194/tc-16-4701-2022).
 
