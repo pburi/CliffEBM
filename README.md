@@ -1,5 +1,5 @@
 # CliffEBM
-## A Gridded Ice Cliff Energy Balance Model
+## A _Gridded Ice Cliff Energy Balance Model_
 > 2023-05-21
 
 ![logo.jpg](doc/logo.jpg)
