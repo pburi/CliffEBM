@@ -1,0 +1,5 @@
+************************
+************************
+-implement cliff rotation (take from dynamic model)
+-add output-scripts (plotting maps, fluxes diurnal cycles, ...)
+
