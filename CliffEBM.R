@@ -79,9 +79,11 @@ resol_calc<-1
 additionalOutput<-TRUE
 # additionalOutput<-FALSE
 
-## set date-format to site-specific time (to avoid summertime)
-targetTZ<-'Asia/Kathmandu'
-localTZ<-'Europe/Zurich'
+## Time settings
+localTZ<-'Europe/Zurich'    ##local timezone on machine
+targetTZ<-'Asia/Kathmandu'  ##studysite-specific timezone
+deltaGMT<-5.75              ##difference to GMT [decimal h]
+
 
 # define melt model loop (has to be inside of meteodata-timestamps)
 #  [mm-dd HH:MM:SS]
@@ -658,6 +660,7 @@ for(SRN in 1:nrow(paramfile)){
   
   doy<-as.numeric(strftime(Date,format='%j'))
   hour<-as.numeric(strftime(Date,format='%H'))
+  year<-as.numeric(strftime(Date,format='%Y'))
   ws<-AWSdata$WS
   rH<-AWSdata$RH
   SWin<-AWSdata$SWIN
@@ -694,6 +697,7 @@ for(SRN in 1:nrow(paramfile)){
   #  (used for pressure in turbulent flux)
   Lat<-extent(longlatcoor)[3]  # Latitude (pos. for N-hemisphere) [°]
   Lon<-extent(longlatcoor)[1]  # Longitude (pos. for W-hemisphere) [°]
+  phi<-Lat*pi/180   # Latitude in radians
   sigma<-5.67e-8    # Stefan-Boltzmann constant [W m^-2 K^-4]
   Ti<-0             # Ice cliff surface temperature [C]
   g<-9.81           # Gravitational acceleration [m s^-2]
@@ -943,6 +947,80 @@ for(SRN in 1:nrow(paramfile)){
     # ##check
     # plot(I_E,type='l')
     # lines(I_in_obs,col='red')
+
+    
+    ############################################################################
+    ## Calculate sun variables  (improved algorithm)
+    delta<-vector()
+    omega<-vector()
+    solaraz<-vector()
+    h<-vector()
+    for(i in 1:length(TS)){
+      DOY<-doy[TS][i]
+      HH<-hour[TS][i]
+      
+      ## Solar declination
+      delta_S<-23.45*pi/180*cos(2*pi/365*(172 - DOY))
+      
+      ## Time difference between standard and local meridian
+      ifelse(Lon < 0,
+             Delta_TSL<- -1/15*(15*abs(deltaGMT) - abs(Lon)),
+             Delta_TSL<- 1/15*(15*abs(deltaGMT) - abs(Lon))
+      )
+      
+      ## Integration intervals (needs to be adapted?)
+      t_bef<- 0.5
+      t_aft<- 0.5
+      t<-seq(HH-t_bef,HH+t_aft,0.0166666)
+      omega_S<-vector()
+      for(j in 1:length(t)){
+        ## Solar hour angle
+        ifelse(t[j] < (12 + Delta_TSL),
+               omega_S[j]<- 15*pi/180*(t[j] + 12 - Delta_TSL),
+               omega_S[j]<- 15*pi/180*(t[j] - 12 - Delta_TSL)
+        )
+      }
+      
+      ## Solar elevation
+      sinh_S<-sin(phi)*sin(delta_S) + cos(phi)*cos(delta_S)*cos(omega_S);
+      h_S<-asin(sinh_S)
+      h_S<-mean(h_S) 
+      
+      ## Solar azimuth
+      zeta_S<-atan(-sin(omega_S)/(tan(delta_S)*cos(phi) - sin(phi)*cos(omega_S)))
+      for(j in 1:length(t)){
+        if(omega_S[j] >0 && omega_S[j] <= pi){
+          ifelse(zeta_S[j] > 0,
+                 zeta_S[j]<- zeta_S[j] + pi,
+                 zeta_S[j]<-zeta_S[j] + (2*pi)
+          )
+        }
+        if(omega_S[j] >=pi && omega_S[j] <= 2*pi){
+          if(zeta_S[j] < 0){zeta_S[j]<-zeta_S[j] + pi}
+        }
+      }
+      
+      delta[i]<-delta_S                ## Solar declination
+      omega[i]<-mean(omega_S)          ## Solar hour angle
+      solaraz[i]<-mean(zeta_S) *180/pi ## Solar azimuth   
+      h[i]<-h_S                        ## Solar elevation
+      rm(delta_S,zeta_S,omega_S,h_S)
+    }
+    
+    # predefine constants for radiation calculation
+    SIN_phi<-sin(phi)
+    SIN_omega<-sin(omega)
+    SIN_delta<-sin(delta)
+    COS_phi<-cos(phi)
+    COS_omega<-cos(omega)
+    COS_delta<-cos(delta)
+    COS_h<-cos(h)
+    SIN_h<-sin(h)
+    
+    # theta:
+    # Solar zenith angle
+    theta<-acos(SIN_phi*SIN_delta+COS_phi*COS_delta*COS_omega)
+  
     
     # k_t:
     # Clearness index
@@ -1057,8 +1135,6 @@ for(SRN in 1:nrow(paramfile)){
     # pt<-cbind(cliffs_geom_df[,c('x','y')],rep(NA,nrow(cliffs_geom_df)))
     # pt[102,3]<-1000
     # pt<-rasterFromXYZ(pt)
-    # projection(tt)<-projec
-    # plot(I_s)
     # plot(pt,col='red',legend=FALSE,add=TRUE)
     
     # D_s:
