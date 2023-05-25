@@ -45,10 +45,10 @@ CL<-2
 sim_folder<-'Lirung-C-'&CL
 
 ## define root path of all data
-root<-'E:/CliffEBM'
+root<-'D:/CliffEBM'
 
 ## define the reduction of cores to be used (max. number - reduction) 
-reduction<-4
+reduction<-3
 # reduction<-0
 
 ## define parameter file name 
@@ -102,7 +102,8 @@ interv<-'%m'  #monthly
 ################################################################################
 ################################################################################
 ## define path to data folder (existing)
-path_data<-root&'/Data'
+path_data<-root
+# path_data<-root&'/Data'
 
 ## define path to horizon files folder (existing)
 path_hor<-path_data&'/Horizons'
@@ -111,7 +112,7 @@ path_hor<-path_data&'/Horizons'
 path_out<-path_data&'/ModelOutputs'
 
 ## define path to code folder (existing)
-path_code<-root&'/Code'
+path_code<-root
 
 ## define path to functions file (existing)
 path_func<-path_code&'/Functions.r'
@@ -136,7 +137,12 @@ projec<-'+proj=utm +zone=45 +datum=WGS84 +units=m +no_defs'
 # LOAD PACKAGES
 ################################################################################
 ################################################################################
-library(cleaRskyQuantileRegression)
+## install missing packages, e.g.:
+##       install.packages("zoo") )
+## or via a github repository, e.g.:
+##       library(devtools)
+##       install_github("laubblatt/cleaRskyQuantileRegression")
+library(cleaRskyQuantileRegression)   
 library(doParallel)                                                                             
 library(foreach)                                                                                 
 library(grDevices)                                                                               
@@ -150,8 +156,7 @@ library(sf)
 library(sp)                                                         
 library(stats)                                                                                 
 library(utils)
-library(zoo)   #used in function file only
-## install missing packages using the install.packages() function (e.g.: install.packages("zoo") )
+library(zoo)   #used in Functions.R-file only
 
 ## define no. of digits printed in console
 options('scipen'=100, 'digits'=4)
